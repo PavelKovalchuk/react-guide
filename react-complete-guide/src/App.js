@@ -77,10 +77,21 @@ class App extends Component {
 
     }
 
+    ageChangeHandler = (event, index) => {
+
+        const persons = [...this.state.persons];
+        persons[index]['age'] = ( event.target.value > 0 ) ? event.target.value : persons[index]['age'];
+
+        this.setState({
+            persons: persons
+        });
+
+
+    }
+
     togglePersonsHandler = () => {
 
         const doesShow = this.state.showPersons;
-        console.log('doesShow', doesShow);
         this.setState({
             showPersons: !doesShow,
         });
@@ -92,7 +103,7 @@ class App extends Component {
         //const persons = this.state.persons.splice();
         const persons = [...this.state.persons];
         //Remove
-        console.log('deletePersonsHandler persons', persons);
+
         persons.splice(personIndex, 1);
         this.setState({persons: persons});
 
@@ -122,6 +133,7 @@ class App extends Component {
                                 click = { () => this.deletePersonsHandler(index) }
                                 key = {person.id}
                                 changed = { (event) => this.nameChangeHandler(event, person.id) }
+                                ageChanged = { (event) => this.ageChangeHandler(event, index) }
                             />
                         } )
                     }

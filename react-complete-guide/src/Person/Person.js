@@ -10,6 +10,7 @@ const person = (props) => {
             <p onClick={props.click}  >I am {props.name}. I am { props.age } years old.</p>
             <p>{props.children}</p>
             <input type="text" onChange={props.changed} value={props.name} />
+            <input type="number" onChange={props.ageChanged} value={props.age} />
         </div>
 
     );
