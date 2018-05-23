@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import classes from  './App.css';
 import Person from './Person/Person';
 //import Radium, {StyleRoot} from 'radium';
 
@@ -93,20 +93,8 @@ class App extends Component {
 
     render() {
 
-        const style = {
-          backgroundColor: 'green',
-          border: '1px solid brown',
-          padding: '8px',
-          color: 'white',
-          cursor: 'pointer',
-            //Radium feature
-          /*':hover': {
-              backgroundColor: 'lightgreen',
-              color: 'black'
-          }*/
-        };
-
         let persons = null;
+        let btnClass = '';
 
         if(this.state.showPersons){
 
@@ -130,31 +118,26 @@ class App extends Component {
                 </div>
             );
 
-            style.backgroundColor = 'red';
-            //Radium
-            /*style[':hover']= {
-                backgroundColor: 'salmon',
-                color: 'black'
-            };*/
+            btnClass = classes.Red;
 
         }
 
-        let classes = [];
+        let assignedClasses = [];
         if(this.state.persons.length <= 2){
-            classes.push('red');
+            assignedClasses.push(classes.red);
         }
         if(this.state.persons.length <= 1){
-            classes.push('bold');
+            assignedClasses.push(classes.bold);
         }
 
         return (
 
-                <div className="App">
+                <div className={classes.App}>
                     <h1 className="App-title">Hi I am React.</h1>
-                    <p className={classes.join(' ')}>This is working</p>
+                    <p className={assignedClasses.join(' ')}>This is working</p>
                     <button
                         onClick={ this.togglePersonsHandler }
-                        style={style}
+                        className={btnClass}
                     >
                         Switch name
                     </button>
