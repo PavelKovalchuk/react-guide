@@ -8,18 +8,23 @@ class App extends Component {
 
         persons:[
             {
+                id: 1,
                 name: 'Max',
                 age: 28,
             },
             {
+                id: 2,
                 name: 'Manu',
                 age: 23,
             },
             {
+                id: 3,
                 name: 'Stef',
                 age: 48,
             },
-        ]
+        ],
+
+        showPersons: false,
 
     };
 
@@ -42,24 +47,54 @@ class App extends Component {
        });
     }
 
-    nameChangeHandler = (event) => {
+    nameChangeHandler = (event, id) => {
 
+        const personIndex = this.state.persons.findIndex( p => {
+            return p.id === id;
+        } );
+
+        //Get a person by index with Spread operator
+        const person = {...this.state.persons[personIndex]};
+
+        //Alternative
+        /**
+         * Метод Object.assign() копирует из исходных объектов в целевой объект
+         * только перечисляемые и собственные свойства.
+         * ECMAScript6
+         */
+        //const person = Object.assign({}, this.state.persons[personIndex]);
+
+        person.name = event.target.value;
+
+        //Copy of this.state.persons
+        const persons = [...this.state.persons];
+
+        //Paste new person data
+        persons[personIndex] = person;
+
+        //Change state
+        this.setState({ persons: persons});
+
+    }
+
+    togglePersonsHandler = () => {
+
+        const doesShow = this.state.showPersons;
+        console.log('doesShow', doesShow);
         this.setState({
-            persons: [
-                {
-                    name: event.target.value,
-                    age: 28,
-                },
-                {
-                    name: event.target.value,
-                    age: 23,
-                },
-                {
-                    name: 'Stef',
-                    age: 18,
-                },
-            ],
+            showPersons: !doesShow,
         });
+
+    }
+
+    deletePersonsHandler = (personIndex) => {
+
+        //const persons = this.state.persons.splice();
+        const persons = [...this.state.persons];
+        //Remove
+        console.log('deletePersonsHandler persons', persons);
+        persons.splice(personIndex, 1);
+        this.setState({persons: persons});
 
     }
 
@@ -73,32 +108,40 @@ class App extends Component {
           cursor: 'pointer',
         };
 
+        let persons = null;
+
+        if(this.state.showPersons){
+            persons = (
+                <div >
+
+                    {
+                        this.state.persons.map( (person, index) => {
+                            return <Person
+                                name = {person.name}
+                                age = {person.age}
+                                click = { () => this.deletePersonsHandler(index) }
+                                key = {person.id}
+                                changed = { (event) => this.nameChangeHandler(event, person.id) }
+                            />
+                        } )
+                    }
+
+
+                </div>
+            );
+        }
+
         return (
             <div className="App">
                 <h1 className="App-title">Hi I am React.</h1>
                 <button
-                    onClick={ () => this.switchNameHandler('Coming soon!') }
+                    onClick={ this.togglePersonsHandler }
                     style={style}
                 >
                     Switch name
                 </button>
 
-                <Person
-                    name={this.state.persons[0].name}
-                    age={this.state.persons[0].age} />
-
-                <Person
-                    name={this.state.persons[1].name}
-                    age={this.state.persons[1].age}
-                    click = {this.switchNameHandler.bind(this, 'Pavel')}
-                    changed = {this.nameChangeHandler}
-                >
-                    My hobbies: Racing
-                </Person>
-
-                <Person
-                    name={this.state.persons[2].name}
-                    age={this.state.persons[2].age} />
+                {persons}
 
             </div>
         );
