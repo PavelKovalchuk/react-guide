@@ -3,7 +3,6 @@ import './Person.css';
 
 const person = (props) => {
 
-    console.log('props: ', props);
     return (
         <div className="Person">
 
