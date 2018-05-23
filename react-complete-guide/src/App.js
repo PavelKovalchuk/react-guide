@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
-import Radium from 'radium';
+import Radium, {StyleRoot} from 'radium';
 
 class App extends Component {
 
@@ -28,25 +28,6 @@ class App extends Component {
         showPersons: false,
 
     };
-
-    switchNameHandler = (newName) => {
-       this.setState({
-           persons: [
-               {
-                   name: newName,
-                   age: 28,
-               },
-               {
-                   name: 'Manu',
-                   age: 23,
-               },
-               {
-                   name: 'Stef',
-                   age: 18,
-               },
-           ],
-       });
-    }
 
     nameChangeHandler = (event, id) => {
 
@@ -129,7 +110,6 @@ class App extends Component {
 
         if(this.state.showPersons){
 
-
             persons = (
                 <div >
 
@@ -151,6 +131,7 @@ class App extends Component {
             );
 
             style.backgroundColor = 'red';
+            //Radium
             style[':hover']= {
                 backgroundColor: 'salmon',
                 color: 'black'
@@ -167,19 +148,23 @@ class App extends Component {
         }
 
         return (
-            <div className="App">
-                <h1 className="App-title">Hi I am React.</h1>
-                <p className={classes.join(' ')}>This is working</p>
-                <button
-                    onClick={ this.togglePersonsHandler }
-                    style={style}
-                >
-                    Switch name
-                </button>
 
-                {persons}
+            <StyleRoot>
+                <div className="App">
+                    <h1 className="App-title">Hi I am React.</h1>
+                    <p className={classes.join(' ')}>This is working</p>
+                    <button
+                        onClick={ this.togglePersonsHandler }
+                        style={style}
+                    >
+                        Switch name
+                    </button>
 
-            </div>
+                    {persons}
+
+                </div>
+            </StyleRoot>
+
         );
     }
 
