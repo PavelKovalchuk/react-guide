@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
-import Radium, {StyleRoot} from 'radium';
+//import Radium, {StyleRoot} from 'radium';
 
 class App extends Component {
 
@@ -100,10 +100,10 @@ class App extends Component {
           color: 'white',
           cursor: 'pointer',
             //Radium feature
-          ':hover': {
+          /*':hover': {
               backgroundColor: 'lightgreen',
               color: 'black'
-          }
+          }*/
         };
 
         let persons = null;
@@ -132,10 +132,10 @@ class App extends Component {
 
             style.backgroundColor = 'red';
             //Radium
-            style[':hover']= {
+            /*style[':hover']= {
                 backgroundColor: 'salmon',
                 color: 'black'
-            };
+            };*/
 
         }
 
@@ -149,7 +149,6 @@ class App extends Component {
 
         return (
 
-            <StyleRoot>
                 <div className="App">
                     <h1 className="App-title">Hi I am React.</h1>
                     <p className={classes.join(' ')}>This is working</p>
@@ -163,11 +162,9 @@ class App extends Component {
                     {persons}
 
                 </div>
-            </StyleRoot>
-
         );
     }
 
 }
 
-export default Radium(App);
+export default App;
