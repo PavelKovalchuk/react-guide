@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import classes from './App.css';
-import Person from '../components/Persons/Person/Person';
+//import Person from '../components/Persons/Person/Person';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 //import Radium, {StyleRoot} from 'radium';
-import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
+//import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
 
 class App extends Component {
 
@@ -86,7 +88,6 @@ class App extends Component {
         //const persons = this.state.persons.splice();
         const persons = [...this.state.persons];
         //Remove
-
         persons.splice(personIndex, 1);
         this.setState({persons: persons});
 
@@ -95,55 +96,25 @@ class App extends Component {
     render() {
 
         let persons = null;
-        let btnClass = '';
 
         if(this.state.showPersons){
+            persons = <Persons
+                        persons = {this.state.persons}
+                        clicked = {this.deletePersonsHandler}
+                        changed = {this.nameChangeHandler}
+                        ageChanged = {this.ageChangeHandler}
+                    />
 
-            persons = (
-                <div >
-
-                    {
-                        this.state.persons.map( (person, index) => {
-                            return <ErrorBoundary key = {person.id} >
-                                <Person
-                                    name = {person.name}
-                                    age = {person.age}
-                                    click = { () => this.deletePersonsHandler(index) }
-                                    changed = { (event) => this.nameChangeHandler(event, person.id) }
-                                    ageChanged = { (event) => this.ageChangeHandler(event, index) }
-                                />
-                            </ErrorBoundary>
-                        } )
-                    }
-
-
-                </div>
-            );
-
-            btnClass = classes.Red;
-
-        }
-
-        let assignedClasses = [];
-        if(this.state.persons.length <= 2){
-            assignedClasses.push(classes.red);
-        }
-        if(this.state.persons.length <= 1){
-            assignedClasses.push(classes.bold);
         }
 
         return (
-
                 <div className={classes.App}>
-                    <h1 className="App-title">Hi I am React.</h1>
-                    <p className={assignedClasses.join(' ')}>This is working</p>
-                    <button
-                        onClick={ this.togglePersonsHandler }
-                        className={btnClass}
-                    >
-                        Switch name
-                    </button>
 
+                    <Cockpit
+                        showPersons={this.state.showPersons}
+                        persons={this.state.persons}
+                        clicked={this.togglePersonsHandler}
+                    />
                     {persons}
 
                 </div>
