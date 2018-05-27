@@ -1,31 +1,39 @@
-import React from 'react';
+import React, {Component} from 'react';
 import classes from './Person.css';
 //import Radium from 'radium';
 
-const person = (props) => {
+class Person extends Component{
 
-    const style = {
-     /* '@media(min-width: 500px)': {
-          width: '450px',
-      }*/
-    };
+    constructor(props){
+        super(props);
+        console.log('[Person.js] Inside constructor', props);
 
-    //const rnd = Math.random();
-    /*if(rnd > 0.7){
-        throw new Error('Test error occured');
-    }*/
+    }
 
-    return (
-        <div className={classes.Person} style={style}>
+    componentWillMount(){
+        console.log('[Person.js] Inside componentWillMount');
+    }
 
-            <p onClick={props.click}  >I am {props.name}. I am { props.age } years old.</p>
-            <p>{props.children}</p>
-            <input type="text" onChange={props.changed} value={props.name} />
-            <input type="number" onChange={props.ageChanged} value={props.age} />
-        </div>
+    componentDidMount(){
+        console.log('[Person.js] Inside componentDidMount');
+    }
+    render(){
 
-    );
+        console.log('[Person.js] Inside render()');
+
+        return (
+            <div className={classes.Person}>
+
+                <p onClick={this.props.click}  >I am {this.props.name}. I am { this.props.age } years old.</p>
+                <p>{this.props.children}</p>
+                <input type="text" onChange={this.props.changed} value={this.props.name} />
+                <input type="number" onChange={this.props.ageChanged} value={this.props.age} />
+            </div>
+
+        );
+
+    }
 
 }
 
-export default person;
+export default Person;
