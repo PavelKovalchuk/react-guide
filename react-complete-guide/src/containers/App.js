@@ -3,6 +3,8 @@ import classes from './App.css';
 //import Person from '../components/Persons/Person/Person';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
+import Auxw from '../hoc/Auxw';
+import withClass from '../hoc/withClass';
 //import Radium, {StyleRoot} from 'radium';
 //import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
 
@@ -34,6 +36,7 @@ class App extends PureComponent {
             ],
 
             showPersons: false,
+            toggleClicked: 0,
 
         };
 
@@ -130,8 +133,11 @@ class App extends PureComponent {
     togglePersonsHandler = () => {
 
         const doesShow = this.state.showPersons;
-        this.setState({
-            showPersons: !doesShow,
+        this.setState( (prevState, props) =>  {
+            return {
+                showPersons: !doesShow,
+                toggleClicked: prevState.toggleClicked + 1,
+            }
         });
 
     }
@@ -162,7 +168,7 @@ class App extends PureComponent {
         }
 
         return (
-                <div className={classes.App}>
+                <Auxw >
 
                     <button
                         onClick={() => { this.setState({showPersons : true}) }}
@@ -177,10 +183,10 @@ class App extends PureComponent {
                     />
                     {persons}
 
-                </div>
+                </Auxw>
         );
     }
 
 }
 
-export default App;
+export default withClass(App, classes.App);
