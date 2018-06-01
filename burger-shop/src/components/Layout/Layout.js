@@ -2,6 +2,7 @@
 import React from 'react';
 import Aux from '../../hoc/Auxiliary';
 import Toolbar from '../Navigation/Toolbar/Toolbar';
+import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
 
 import classes from './Layout.css';
 
@@ -11,7 +12,7 @@ const layout = (props) => (
     <Aux>
         <div>
             <Toolbar  />
-            SideDrawer, Backdrop
+            <SideDrawer/>
         </div>
 
         <main className={classes.Content}>
