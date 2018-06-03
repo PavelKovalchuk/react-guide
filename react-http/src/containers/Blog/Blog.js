@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import Post from '../../components/Post/Post';
 import FullPost from '../../components/FullPost/FullPost';
 import NewPost from '../../components/NewPost/NewPost';
-import axios from 'axios';
+//import axios from 'axios';
+import axios from '../../axios';
 
 import './Blog.css';
 
@@ -13,12 +14,13 @@ class Blog extends Component {
 
         posts: [],
         selectedPostId: null,
+        error: false,
 
     }
 
     componentDidMount(){
 
-        axios.get('https://jsonplaceholder.typicode.com/posts')
+        axios.get('/posts')
             .then( response => {
 
                 const posts = response.data.slice(0, 6);
@@ -34,7 +36,16 @@ class Blog extends Component {
                     posts: updatedPosts,
                 });
                 //console.log('response: ', response);
-            } );
+            } )
+            .catch( error => {
+                //console.error(error);
+
+                this.setState({
+                    error: true,
+                });
+
+            } )
+        ;
 
     }
 
@@ -48,16 +59,20 @@ class Blog extends Component {
 
     render () {
 
-        const posts = this.state.posts.map(
-            post => {
-                return <Post
-                    title={post.title}
-                    key={post.id}
-                    author = {post.author}
-                    clicked = { () => this.postSelectedHandler(post.id) }
-                />;
-            }
-        );
+        let posts = <p style={{textAlign: 'center', color: 'red', }} >Error occured!!!</p>;
+
+        if(!this.state.error){
+            posts = this.state.posts.map(
+                post => {
+                    return <Post
+                        title={post.title}
+                        key={post.id}
+                        author = {post.author}
+                        clicked = { () => this.postSelectedHandler(post.id) }
+                    />;
+                }
+            );
+        }
 
         return (
             <div>
