@@ -5,6 +5,9 @@ import counterReducer from './store/reducers/counter';
 import resultReducer from './store/reducers/result';
 import { Provider } from 'react-redux';
 
+//Middleware
+import thunk from 'redux-thunk';
+
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
@@ -29,7 +32,7 @@ const logger = store => {
 //https://github.com/zalmoxisus/redux-devtools-extension
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(logger)));
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(logger, thunk)));
 
 ReactDOM.render(<Provider store={store} ><App /></Provider>, document.getElementById('root'));
 registerServiceWorker();
