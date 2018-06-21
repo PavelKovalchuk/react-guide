@@ -8,32 +8,17 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import {connect} from 'react-redux';
 import * as burgerBuilderActions from '../../store/actions/index';
-
 import axios from '../../axios-orders';
-
 
 class BurgerBuilder extends Component{
 
     state = {
         purchasing: false,
-        loading: false,
-        error: false,
     }
 
     componentDidMount(){
 
-       /* axios.get('/ingredients.json')
-            .then(
-                response => {
-                    this.setState({ingredients: response.data});
-                }
-            )
-            .catch(
-                error => {
-                    this.setState({error: true,});
-                }
-            );*/
-
+        this.props.onInitIngredients();
     }
 
     updatePurchaseState (ingredients){
@@ -132,7 +117,7 @@ class BurgerBuilder extends Component{
         }
 
         let orderSummary = null;
-        let burger = this.state.error ? <p>Ingredients cannot be loaded.</p> : <Spinner/>;
+        let burger = this.props.error ? <p>Ingredients cannot be loaded.</p> : <Spinner/>;
 
         if(this.props.ings){
             burger = (
@@ -157,9 +142,9 @@ class BurgerBuilder extends Component{
             />;
         }
 
-        if(this.state.loading){
+       /* if(this.state.loading){
             orderSummary = <Spinner />;
-        }
+        }*/
 
         return (
             <Aux>
@@ -179,6 +164,7 @@ const mapStateToProps = state => {
     return {
         ings: state.ingredients,
         price: state.totalPrice,
+        error: state.error,
     }
 
 }
@@ -187,8 +173,8 @@ const mapDispatchToProps = dispatch => {
 
     return {
         onIngredientAdded: (ingName) => dispatch(burgerBuilderActions.addIngredient(ingName)),
-
         onIngredientRemoved: (ingName) => dispatch(burgerBuilderActions.removeIngredient(ingName)),
+        onInitIngredients: () => dispatch(burgerBuilderActions.initIngredients())
     }
 
 }
