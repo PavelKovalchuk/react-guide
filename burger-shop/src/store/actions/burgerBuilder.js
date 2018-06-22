@@ -1,6 +1,7 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios-orders';
 
+//Action creators
 
 export const addIngredient = (name) => {
 
