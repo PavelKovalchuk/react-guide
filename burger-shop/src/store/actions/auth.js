@@ -30,7 +30,7 @@ export const authFail = (error) => {
 };
 
 //Async code. Thanks for Thunk
-export const auth = (email, password) => {
+export const auth = (email, password, isSignup) => {
 
     return dispatch => {
         dispatch(authStart());
@@ -42,7 +42,12 @@ export const auth = (email, password) => {
             returnSecureToken: true,
         };
 
-        axios.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=' + apiKey, authData)
+        let url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=';
+        if(!isSignup){
+            url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=';
+        }
+
+        axios.post(url + apiKey, authData)
             .then(response => {
                 console.log(response);
                 dispatch(authSuccess(response.data));
