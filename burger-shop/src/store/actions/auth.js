@@ -1,4 +1,5 @@
 import * as actionTypes from './actionTypes';
+import axios from 'axios';
 
 //Action creator for authentication
 
@@ -29,10 +30,27 @@ export const authFail = (error) => {
 };
 
 //Async code. Thanks for Thunk
-export const auth = () => {
+export const auth = (email, password) => {
 
     return dispatch => {
         dispatch(authStart());
+
+        const apiKey = 'AIzaSyBMeZKuNrtYFXw3qxhkmAEiFJjXnTMVpoE';
+        const authData = {
+            email: email,
+            password: password,
+            returnSecureToken: true,
+        };
+
+        axios.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=' + apiKey, authData)
+            .then(response => {
+                console.log(response);
+                dispatch(authSuccess(response.data));
+            })
+            .catch( err => {
+                console.log(err);
+                dispatch(authFail(err))
+            } );
     };
 
 };
