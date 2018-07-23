@@ -6,6 +6,7 @@ const initialState = {
     userId: null,
     error: null,
     loading: false,
+    authRedirectPath: '/',
 };
 
 //Helpers functions
@@ -36,6 +37,14 @@ const authLogout = (state, action) => {
     });
 };
 
+const setAuthRedirectPath = (state, action) => {
+
+    return updateObject(state, {
+        authRedirectPath: action.path,
+    });
+
+};
+
 //Main function-reducer
 const reducer = (state = initialState, action) => {
 
@@ -47,6 +56,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.AUTH_SUCCESS: return authSuccess(state, action);
         case actionTypes.AUTH_FAIL: return authFail(state, action);
         case actionTypes.AUTH_LOGOUT: return authLogout(state, action);
+        case actionTypes.SET_AUTH_REDIRECT_PATH: return setAuthRedirectPath(state, action);
         default: return state;
     }
 };
