@@ -6,6 +6,7 @@ import Input from '../../../components/UI/Input/Input';
 import {connect} from 'react-redux';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../../store/actions/index';
+import {updateObject} from "../../../shared/utility";
 
 import classes from './ContactData.css';
 
@@ -77,6 +78,7 @@ class ContactData extends Component{
                 value: '',
                 validation: {
                     required: true,
+                    isEmail: true,
                 },
                 valid: false,
                 touched: false,
@@ -149,18 +151,18 @@ class ContactData extends Component{
 
     inputChangedHandler = (event, inputIdentifier) => {
 
-        const updatedForm = {
-            ...this.state.orderForm
-        }
-
-        const updatedFormElement = {
-            ...updatedForm[inputIdentifier]
-        }
-
-        updatedFormElement.value = event.target.value;
-        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
-        updatedFormElement.touched = true;
-        updatedForm[inputIdentifier] = updatedFormElement;
+        const updatedFormElement = updateObject(
+            this.state.orderForm[inputIdentifier],
+            {
+                value: event.target.value,
+                valid: this.checkValidity(event.target.value, this.state.orderForm[inputIdentifier].validation),
+                touched: true,
+            }
+        );
+        const updatedForm = updateObject(
+            this.state.orderForm,
+            {[inputIdentifier]: updatedFormElement,}
+        );
 
         let formIsValid = true;
 
