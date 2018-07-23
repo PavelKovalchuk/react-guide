@@ -31,6 +31,10 @@ const authFail = (state, action) => {
 
 //Main function-reducer
 const reducer = (state = initialState, action) => {
+
+    console.log('auth reducer state:', state);
+    console.log('auth reducer action:', action);
+
     switch (action.type){
         case actionTypes.AUTH_START: return authStart(state, action);
         case actionTypes.AUTH_SUCCESS: return authSuccess(state, action);
