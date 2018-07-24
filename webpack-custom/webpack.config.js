@@ -3,14 +3,15 @@ const path = require('path');
 const autoprefixer = require('autoprefixer');
 
 module.export = {
-
+    mode: 'production',
     devtool: 'cheap-module-eval-source-map',
     //Where the journey starts
     entry: './src/index.js',
     output: {
-        path: '',
+        path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
-        publicPath: path.resolve(__dirname, 'dist'),
+        chunkFilename: '[id].js',
+        publicPath: '',
     },
     resolve: {
         extensions: ['.js', '.jsx'],
