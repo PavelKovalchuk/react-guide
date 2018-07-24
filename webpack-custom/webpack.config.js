@@ -1,20 +1,18 @@
-//default node module
 const path = require('path');
 const autoprefixer = require('autoprefixer');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.export = {
-    mode: 'production',
+module.exports = {
     devtool: 'cheap-module-eval-source-map',
-    //Where the journey starts
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
         chunkFilename: '[id].js',
-        publicPath: '',
+        publicPath: ''
     },
     resolve: {
-        extensions: ['.js', '.jsx'],
+        extensions: ['.js', '.jsx']
     },
     module: {
         rules: [
@@ -25,37 +23,44 @@ module.export = {
             },
             {
                 test: /\.css$/,
+                exclude: /node_modules/,
                 use: [
-                    {loader: 'style-loader'},
+                    { loader: 'style-loader' },
                     {
                         loader: 'css-loader',
                         options: {
                             importLoaders: 1,
                             modules: true,
-                            localIdentName: '[name]_[local]_[hash:base64:5]'
+                            localIdentName: '[name]__[local]__[hash:base64:5]'
                         }
                     },
                     {
                         loader: 'postcss-loader',
                         options: {
-                            'ident': 'postcss',
-                            plugins: () => {
+                            ident: 'postcss',
+                            plugins: () => [
                                 autoprefixer({
                                     browsers: [
                                         "> 1%",
                                         "last 2 versions"
                                     ]
-                                });
-                            }
+                                })
+                            ]
                         }
                     }
-                ],
-                exclude: /node_modules/
+                ]
             },
             {
                 test: /\.(png|jpe?g|gif)$/,
                 loader: 'url-loader?limit=8000&name=images/[name].[ext]'
             }
         ]
-    }
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: __dirname + '/src/index.html',
+            filename: 'index.html',
+            inject: 'body'
+        })
+    ]
 };
