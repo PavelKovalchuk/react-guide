@@ -8,6 +8,10 @@ import {
     authCheckStateSaga,
 } from "./auth";
 
+import  {
+    initIngredientsSaga,
+} from "./burgerBuilder";
+
 
 export function* watchAuth() {
 
@@ -15,5 +19,10 @@ export function* watchAuth() {
     yield takeEvery(actionTypes.AUTH_INITIATE_LOGOUT, logoutSaga);
     yield takeEvery(actionTypes.AUTH_USER, authUserSaga);
     yield takeEvery(actionTypes.AUTH_CHECK_INITIAL_STATE, authCheckStateSaga);
+}
+
+export function* watchBurgerBuilder() {
+
+    yield takeEvery(actionTypes.SET_INGREDIENTS_INITIAL, initIngredientsSaga);
 
 }
