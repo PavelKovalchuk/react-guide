@@ -12,6 +12,11 @@ import  {
     initIngredientsSaga,
 } from "./burgerBuilder";
 
+import {
+    purchaseBurgerSaga,
+    fetchOrdersSaga
+} from "./order";
+
 
 export function* watchAuth() {
 
@@ -25,4 +30,10 @@ export function* watchBurgerBuilder() {
 
     yield takeEvery(actionTypes.SET_INGREDIENTS_INITIAL, initIngredientsSaga);
 
+}
+
+export function* watchOrder() {
+
+    yield takeEvery(actionTypes.PURCHASE_BURGER_INITIAL, purchaseBurgerSaga);
+    yield takeEvery(actionTypes.FETCH_ORDERS_INITIAL, fetchOrdersSaga);
 }
