@@ -1,0 +1,29 @@
+.custom-image-size {
+  width: 50%
+}
+
+.left-border {
+  border-left: black solid 1px;
+}
+
+.active-list-item{
+  background-color: aliceblue
+}
+
+.list-scrollable {
+  overflow: auto;
+  height: 100vh;
+}
+
+.list-group-item:focus {
+  background-color: aliceblue !important;
+  outline: none;
+}
+
+.card-background {
+  background-color: rgba(84, 84, 84, 0.12)
+}
+
+.hr-black-border {
+  border-color: black
+}
