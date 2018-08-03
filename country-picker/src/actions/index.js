@@ -13,3 +13,29 @@ export const selectCountry = (name) => {
     }
 
 };
+
+export const fetchSingleCountrySuccess = (countryData) => {
+
+    return {
+        type: types.SINGLE_COUNTRY_FETCH_SUCCEEDED,
+        countryData: countryData,
+    };
+
+};
+
+export const fetchSingleCountryStart = () => {
+
+    return {
+        type: types.SINGLE_COUNTRY_FETCH_START,
+    };
+
+};
+
+export const fetchSingleCountryFail = (error) => {
+
+    return {
+        type: types.SINGLE_COUNTRY_FETCH_FAILED,
+        error: error,
+    };
+
+};

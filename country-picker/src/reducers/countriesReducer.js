@@ -81,7 +81,9 @@ const initialState = {
     },
     searchFieldInput: '',
     // this is for the UI part of marking the selected list item and is seperated from data concerns
-    activeCountryLI: ''
+    activeCountryLI: '',
+    isCountryLoading: false,
+    countryLoadingError: null,
 };
 
 export default function countriesReducer(state = initialState, action) {
@@ -95,6 +97,33 @@ export default function countriesReducer(state = initialState, action) {
                 ...state,
                 selectedCountry: selectedCountryDataArray[0]
             };
+
+        case types.SINGLE_COUNTRY_FETCH_START:
+            console.log('countriesReducer SINGLE_COUNTRY_FETCH_START action: ', action);
+            return {
+                ...state,
+                isCountryLoading: true
+            };
+
+        case types.SINGLE_COUNTRY_FETCH_FAILED:
+            console.log('countriesReducer SINGLE_COUNTRY_FETCH_FAILED action: ', action);
+            return {
+                ...state,
+                isCountryLoading: false,
+                countryLoadingError: action.error
+            };
+
+        case types.SINGLE_COUNTRY_FETCH_SUCCEEDED:
+            console.log('countriesReducer SINGLE_COUNTRY_FETCH_SUCCEEDED action: ', action);
+            return {
+                ...state,
+                isCountryLoading: false,
+                selectedCountry: action.countryData
+            };
+
+
+
+
         case types.ALL_COUNTRIES_FETCH_SUCCEEDED:
             return {
                 ...state,
