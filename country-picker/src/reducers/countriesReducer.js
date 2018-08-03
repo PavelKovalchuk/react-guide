@@ -7,21 +7,57 @@ const initialState = {
             region: 'Europe',
             languages: [
                 {name: "Bulgarian"}
-            ]
+            ],
+            currencies: [
+                {
+                    code: "BGN",
+                    name: "Bulgarian lev",
+                    symbol: "лв"
+                }
+            ],
+            countryName: 'Bulgaria',
+            flagImageLink: 'https://restcountries.eu/data/bgr.svg',
+            regionName: 'Europe',
+            capitalCity: 'Sofia',
+            population: 333
         },
         {
             name: 'Germany',
             region: 'Europe',
             languages: [
-                {name: "Bulgarian"}
-            ]
+                {name: "Germany"}
+            ],
+            currencies: [
+                {
+                    code: "BGN",
+                    name: "Bulgarian lev",
+                    symbol: "лв"
+                }
+            ],
+            countryName: 'Germany',
+            flagImageLink: 'https://restcountries.eu/data/geo.svg',
+            regionName: 'Europe',
+            capitalCity: 'Sofia',
+            population: 333
         },
         {
             name: 'France',
             region: 'Europe',
             languages: [
-                {name: "Bulgarian"}
-            ]
+                {name: "France"}
+            ],
+            currencies: [
+                {
+                    code: "BGN",
+                    name: "Bulgarian lev",
+                    symbol: "лв"
+                }
+            ],
+            countryName: 'France',
+            flagImageLink: 'https://restcountries.eu/data/fra.svg',
+            regionName: 'Europe',
+            capitalCity: 'Sofia',
+            population: 333
         }
     ],
     selectedCountry: {
@@ -52,9 +88,12 @@ export default function countriesReducer(state = initialState, action) {
 
     switch (action.type) {
         case types.SET_SELECTED_COUNTRY:
+
+            const selectedCountryDataArray = state.countries.filter(country => country.name === action.countryName);
+            console.log('countriesReducer SET_SELECTED_COUNTRY selectedCountryData: ', selectedCountryDataArray[0]);
             return {
                 ...state,
-                selectedCountry: action.name
+                selectedCountry: selectedCountryDataArray[0]
             };
         case types.ALL_COUNTRIES_FETCH_SUCCEEDED:
             return {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import ListViewItem from '../../components/ListViewItem/ListViewItem';
 
-const MasterViewPage = ({ countries, selectedCountry, selectCountry }) => (
+const MasterViewPage = ({ countries, selectedCountry, onSelectCountry }) => (
     <div>
         <div className="list-group list-scrollable">
             {countries.map(country => (
@@ -12,7 +12,7 @@ const MasterViewPage = ({ countries, selectedCountry, selectCountry }) => (
                         title={country.name}
                         subTitle={country.region}
                         active={selectedCountry.countryName === country.name}
-                        handleOnClick={() => selectCountry(country.name)}
+                        handleOnClick={(e) => (onSelectCountry(country.name, e))}
                     />
                 )
             )}
@@ -23,7 +23,7 @@ const MasterViewPage = ({ countries, selectedCountry, selectCountry }) => (
 MasterViewPage.propTypes = {
     countries: PropTypes.arrayOf(PropTypes.object).isRequired,
     selectedCountry: PropTypes.object.isRequired,
-    selectCountry: PropTypes.func.isRequired
+    onSelectCountry: PropTypes.func.isRequired
 };
 
 export default MasterViewPage;
