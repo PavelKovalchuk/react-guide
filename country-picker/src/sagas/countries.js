@@ -1,6 +1,7 @@
 import {put} from 'redux-saga/effects';
 import * as actions from '../actions/index';
 import axios from '../axios-instances/axios-countries';
+import {createCountryObject} from '../utils/helperFunctions';
 
 export function* fetchCountrySaga (action) {
 
@@ -23,7 +24,7 @@ export function* fetchCountrySaga (action) {
 
         }*/
 
-        yield put(actions.fetchSingleCountrySuccess(response.data[0]));
+        yield put(actions.fetchSingleCountrySuccess(createCountryObject(response.data)));
 
     }catch (error){
         yield put(actions.fetchSingleCountryFail(error));

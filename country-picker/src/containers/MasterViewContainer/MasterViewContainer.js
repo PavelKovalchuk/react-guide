@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 // components / actions
 import MasterViewPage from '../../pages/MasterViewPage/MasterViewPage';
 import * as countryActions from '../../actions/index';
-import { filterCountries } from '../../utils/helperFunctions';
+import { filterCountries, objectIsEmpty } from '../../utils/helperFunctions';
 
 class MasterViewContainer extends React.Component {
     constructor(props) {
@@ -29,14 +28,15 @@ class MasterViewContainer extends React.Component {
     render() {
 
         console.log('MasterViewContainer this.props', this.props);
-
+        let selectedCountryName = objectIsEmpty(this.props.selectedCountry) ? '' : this.props.selectedCountry.countryName;
+        console.log('MasterViewContainer selectedCountryName', selectedCountryName);
         return (
             <div>
                 { this.props.countries.length > 0 ?
                     <MasterViewPage
                         countries={filterCountries(this.props.countries, this.props.searchFieldInput)}
                         onSelectCountry={this.selectCountryHandler}
-                        selectedCountry = {this.props.selectedCountry}
+                        selectedCountryName = {selectedCountryName}
                         searchFieldInput={this.props.searchFieldInput}
                         //changeSearchFieldInput={this.props.actions.changeSearchFieldInput}
                         //activeCountryLI={this.props.activeCountryLI}
@@ -55,6 +55,7 @@ MasterViewContainer.propTypes = {
         name: PropTypes.string.isRequired,
         region: PropTypes.string.isRequired
     })).isRequired,
+
     //actions: PropTypes.object.isRequired,
     searchFieldInput: PropTypes.string.isRequired,
     //activeCountryLI: PropTypes.string.isRequired,

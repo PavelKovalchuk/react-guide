@@ -18,9 +18,9 @@ class DetailViewContainer extends React.Component {
         return (
             <div>
                 {
-                    objectIsEmpty(this.props.selectedCountry) ?
-                        <div>Select a country to get more information!</div> :
-                        <CountryDetailPage selectedCountry={this.props.selectedCountry} />
+                    objectIsEmpty(this.props.selectedCountry)
+                        ? <div>Select a country to get more information!</div>
+                        : <CountryDetailPage selectedCountry={this.props.selectedCountry} />
                 }
             </div>
         );
