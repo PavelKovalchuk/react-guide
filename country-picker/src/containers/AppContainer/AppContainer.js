@@ -1,7 +1,8 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import logger from 'redux-logger';
-import { createStore, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import { createStore, applyMiddleware, compose } from 'redux';
 
 // components / reducers
 import AppLayout from '../../layout/AppLayout/AppLayout';
@@ -10,8 +11,13 @@ import rootReducer from '../../reducers/index';
 
 // initial store setup
 const configureStore = (initialState) => {
-    const enhancers = applyMiddleware(logger);
-    return createStore(rootReducer, initialState, enhancers);
+
+    const enhancer = compose(
+        applyMiddleware(
+            logger
+        )
+    );
+    return createStore(rootReducer, initialState, enhancer);
 };
 
 // create store

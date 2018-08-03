@@ -2,7 +2,7 @@ import React from 'react';
 
 // components
 import MasterViewContainer from '../../containers/MasterViewContainer/MasterViewContainer';
-//import DetailViewContainer from '../containers/DetailViewContainer';
+import DetailViewContainer from '../../containers/DetailViewContainer/DetailViewContainer';
 
 const AppLayout = () => (
     <div className="container">
@@ -11,7 +11,7 @@ const AppLayout = () => (
                 {<MasterViewContainer />}
             </div>
             <div className="col-xs-6">
-                {/*<DetailViewContainer />*/}
+                {<DetailViewContainer />}
             </div>
         </div>
     </div>
