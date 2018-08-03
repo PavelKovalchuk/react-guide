@@ -8,7 +8,7 @@ const initialState = {
 
         },
         {
-            name: 'Ukraine',
+            name: 'Ukrainee',
             region: 'Europe',
 
         },
@@ -27,8 +27,8 @@ const initialState = {
     searchFieldInput: '',
     // this is for the UI part of marking the selected list item and is seperated from data concerns
     activeCountryLI: '',
-    isCountryLoading: false,
-    countryLoadingError: null,
+    isSingleCountryLoading: false,
+    singleCountryLoadingError: {},
 };
 
 export default function countriesReducer(state = initialState, action) {
@@ -39,22 +39,23 @@ export default function countriesReducer(state = initialState, action) {
             console.log('countriesReducer SINGLE_COUNTRY_FETCH_START action: ', action);
             return {
                 ...state,
-                isCountryLoading: true
+                isSingleCountryLoading: true,
+                singleCountryLoadingError: {}
             };
 
         case types.SINGLE_COUNTRY_FETCH_FAILED:
             console.log('countriesReducer SINGLE_COUNTRY_FETCH_FAILED action: ', action);
             return {
                 ...state,
-                isCountryLoading: false,
-                countryLoadingError: action.error
+                isSingleCountryLoading: false,
+                singleCountryLoadingError: action.error
             };
 
         case types.SINGLE_COUNTRY_FETCH_SUCCEEDED:
             console.log('countriesReducer SINGLE_COUNTRY_FETCH_SUCCEEDED action: ', action);
             return {
                 ...state,
-                isCountryLoading: false,
+                isSingleCountryLoading: false,
                 selectedCountry: action.countryData
             };
 
