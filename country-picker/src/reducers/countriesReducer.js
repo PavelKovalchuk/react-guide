@@ -1,28 +1,9 @@
 import * as types from '../actions/types';
 
 const initialState = {
-    countries: [
-        {
-            name: 'Bulgaria',
-            region: 'Europe',
-
-        },
-        {
-            name: 'Ukrainee',
-            region: 'Europe',
-
-        },
-        {
-            name: 'Germany',
-            region: 'Europe',
-
-        },
-        {
-            name: 'France',
-            region: 'Europe',
-
-        }
-    ],
+    countries: [],
+    isSearchingCountriesLoading: false,
+    searchingCountriesLoadingError: {},
     selectedCountry: {},
     searchFieldInput: '',
     // this is for the UI part of marking the selected list item and is seperated from data concerns
@@ -36,7 +17,7 @@ export default function countriesReducer(state = initialState, action) {
     switch (action.type) {
 
         case types.SINGLE_COUNTRY_FETCH_START:
-            console.log('countriesReducer SINGLE_COUNTRY_FETCH_START action: ', action);
+
             return {
                 ...state,
                 isSingleCountryLoading: true,
@@ -44,7 +25,7 @@ export default function countriesReducer(state = initialState, action) {
             };
 
         case types.SINGLE_COUNTRY_FETCH_FAILED:
-            console.log('countriesReducer SINGLE_COUNTRY_FETCH_FAILED action: ', action);
+
             return {
                 ...state,
                 isSingleCountryLoading: false,
@@ -52,11 +33,36 @@ export default function countriesReducer(state = initialState, action) {
             };
 
         case types.SINGLE_COUNTRY_FETCH_SUCCEEDED:
-            console.log('countriesReducer SINGLE_COUNTRY_FETCH_SUCCEEDED action: ', action);
+
             return {
                 ...state,
                 isSingleCountryLoading: false,
                 selectedCountry: action.countryData
+            };
+
+
+        case types.SEARCH_COUNTRIES_FETCH_START:
+
+            return {
+                ...state,
+                isSearchingCountriesLoading: true,
+                searchingCountriesLoadingError: {}
+            };
+
+        case types.SEARCH_COUNTRIES_FETCH_FAILED:
+
+            return {
+                ...state,
+                isSearchingCountriesLoading: false,
+                searchingCountriesLoadingError: action.error
+            };
+
+        case types.SEARCH_COUNTRIES_FETCH_SUCCEEDED:
+            
+            return {
+                ...state,
+                isSearchingCountriesLoading: false,
+                countries: action.countriesData
             };
 
         default:

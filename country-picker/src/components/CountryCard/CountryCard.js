@@ -10,7 +10,6 @@ class CountryCard extends React.Component {
     componentDidMount() {
     }
     render() {
-        console.log('CountryCard this.props', this.props);
 
         const { countryName, regionName, image,
             languages, capitalCity, currencies, population } = this.props;

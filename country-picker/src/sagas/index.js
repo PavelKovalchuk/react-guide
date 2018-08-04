@@ -1,12 +1,14 @@
-import {takeEvery, all} from 'redux-saga/effects';
+import {takeEvery} from 'redux-saga/effects';
 import * as actionTypes from '../actions/types';
 import {
-    fetchCountrySaga
+    fetchCountrySaga,
+    fetchSearchCountriesSaga
 } from "./countries";
 
 
 export function* watchCountries() {
 
     yield takeEvery(actionTypes.SET_SELECTED_COUNTRY, fetchCountrySaga);
+    yield takeEvery(actionTypes.SEARCH_COUNTRIES_INIT, fetchSearchCountriesSaga);
 
 }

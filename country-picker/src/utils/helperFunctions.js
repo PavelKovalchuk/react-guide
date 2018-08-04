@@ -42,3 +42,11 @@ export const createCountryObject = (singleCountry) => {
         population
     });
 };
+
+export const createPreviewCountryObject = (singleCountry) => {
+    const {name, region} = singleCountry;
+    return Object.assign({}, {
+        name: name,
+        region: region,
+    });
+};

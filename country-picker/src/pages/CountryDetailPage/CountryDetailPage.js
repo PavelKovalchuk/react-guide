@@ -7,7 +7,7 @@ import { countryPropType } from '../../utils/customPropTypes';
 const CountryDetailPage = ({ selectedCountry }) => {
 
     let countryCardFilled = null;
-    console.log('CountryDetailPage selectedCountry', selectedCountry);
+
     if(selectedCountry){
         countryCardFilled = <CountryCard
             countryName={selectedCountry.countryName}
@@ -19,8 +19,6 @@ const CountryDetailPage = ({ selectedCountry }) => {
             population={selectedCountry.population}
         />;
     }
-
-    console.log('CountryDetailPage countryCardFilled', countryCardFilled);
 
     return countryCardFilled;
 

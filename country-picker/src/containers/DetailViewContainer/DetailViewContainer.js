@@ -44,7 +44,7 @@ class DetailViewContainer extends React.Component {
     }
 
     render() {
-        console.log('CountryDetailContainer render this.props:', this.props);
+
         return (
             <div>
                 {this.getRenderedContent()}
@@ -63,7 +63,7 @@ DetailViewContainer.propTypes = {
 };
 
 const mapStateToProps = state => {
-    console.log('DetailViewContainer mapStateToProps:', state.countriesReducer);
+
     return{
         selectedCountry: state.countriesReducer.selectedCountry,
         isSingleCountryLoading: state.countriesReducer.isSingleCountryLoading,

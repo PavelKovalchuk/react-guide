@@ -4,8 +4,10 @@ import React from 'react';
 import MasterViewContainer from '../../containers/MasterViewContainer/MasterViewContainer';
 import DetailViewContainer from '../../containers/DetailViewContainer/DetailViewContainer';
 
+import * as classes from './AppLayout.css';
+
 const AppLayout = () => (
-    <div className="container">
+    <div className="container AppLayout">
         <div className="row">
             <div className="col-xs-6">
                 {<MasterViewContainer />}

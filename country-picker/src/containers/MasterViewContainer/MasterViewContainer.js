@@ -6,77 +6,91 @@ import { connect } from 'react-redux';
 import MasterViewPage from '../../pages/MasterViewPage/MasterViewPage';
 import * as countryActions from '../../actions/index';
 import { filterCountries, objectIsEmpty } from '../../utils/helperFunctions';
+import {countryPreviewPropType} from '../../utils/customPropTypes';
+import Searcher from '../../components/Searcher/Searcher';
+import Alert from '../../components/Alert/Alert';
+import Preloader from '../../components/Preloader/Preloader';
+
 
 class MasterViewContainer extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
 
-        };
-    }
     componentWillMount() {
         //this.props.actions.requestAllCountries();
     }
 
     selectCountryHandler = (countryName, event) => {
-
-        console.log('selectCountryHandler countryName: ', countryName);
-        //console.log('selectCountryHandler event: ', event.target);
         this.props.onCountryChanged(countryName);
+    }
+
+    searchCountryHandler = (e) =>{
+        const lookupValue = e.target.value;
+        if(lookupValue.length < 2){
+            return null;
+        }
+        this.props.onSearchCountries(lookupValue);
+    }
+
+    getRenderedContent = () => {
+        let selectedCountryName =
+            objectIsEmpty(this.props.selectedCountry)
+            ? ''
+            : this.props.selectedCountry.countryName;
+
+        let renderedContent = null;
+
+        if(!objectIsEmpty(this.props.searchingCountriesLoadingError)){
+            return <Alert type="warning" message={this.props.searchingCountriesLoadingError.message}/>;
+        }else if(this.props.isSearchingCountriesLoading){
+            return <Preloader/>
+        }else if(this.props.countries.length <= 0){
+            return <Alert type="success" message="Start looking for something"/>;
+        }else {
+            return this.props.countries && this.props.countries.length > 0
+                ?  <MasterViewPage
+                    //countries={filterCountries(this.props.countries, this.props.searchFieldInput)}
+                    countries={this.props.countries}
+                    onSelectCountry={this.selectCountryHandler}
+                    selectedCountryName = {selectedCountryName}
+                    searchFieldInput={this.props.searchFieldInput}
+                    />
+                : null
+
+        }
     }
 
     render() {
 
-        console.log('MasterViewContainer this.props', this.props);
-        let selectedCountryName = objectIsEmpty(this.props.selectedCountry) ? '' : this.props.selectedCountry.countryName;
-        console.log('MasterViewContainer selectedCountryName', selectedCountryName);
         return (
-            <div>
-                { this.props.countries.length > 0 ?
-                    <MasterViewPage
-                        countries={filterCountries(this.props.countries, this.props.searchFieldInput)}
-                        onSelectCountry={this.selectCountryHandler}
-                        selectedCountryName = {selectedCountryName}
-                        searchFieldInput={this.props.searchFieldInput}
-                        //changeSearchFieldInput={this.props.actions.changeSearchFieldInput}
-                        //activeCountryLI={this.props.activeCountryLI}
-                        //setActiveCountryListItem={this.props.actions.setActiveCountryListItem}
-                    />
-                    :
-                    <div>Loading Countries...</div>
-                }
+            <div className="row">
+                {<Searcher searchCountryHandler={this.searchCountryHandler} />}
+                { this.getRenderedContent() }
             </div>
         );
     }
 }
 
 MasterViewContainer.propTypes = {
-    countries: PropTypes.arrayOf(PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        region: PropTypes.string.isRequired
-    })).isRequired,
-
-    //actions: PropTypes.object.isRequired,
+    countries: PropTypes.arrayOf(countryPreviewPropType),
     searchFieldInput: PropTypes.string.isRequired,
-    //activeCountryLI: PropTypes.string.isRequired,
     onCountryChanged: PropTypes.func.isRequired,
+    onSearchCountries: PropTypes.func.isRequired,
+    isSearchingCountriesLoading: PropTypes.bool.isRequired,
+    searchingCountriesLoadingError: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
     countries: state.countriesReducer.countries,
     searchFieldInput: state.countriesReducer.searchFieldInput,
-    //activeCountryLI: state.countriesReducer.activeCountryLI,
-    selectedCountry: state.countriesReducer.selectedCountry
+    selectedCountry: state.countriesReducer.selectedCountry,
+    isSearchingCountriesLoading: state.countriesReducer.isSearchingCountriesLoading,
+    searchingCountriesLoadingError: state.countriesReducer.searchingCountriesLoadingError,
 });
-
-/*const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators(Object.assign({}, countryActions), dispatch)
-});*/
 
 const mapDispatchToProps = dispatch => {
 
     return {
         onCountryChanged: (countryName, event) => dispatch(countryActions.selectCountry(countryName, event)),
+        onSearchCountries: (lookupValue) => dispatch(countryActions.searchCountries(lookupValue)),
     }
 
 };
