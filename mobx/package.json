@@ -115,7 +115,7 @@
     "presets": [
       "react-app"
     ],
-    "plugins":  [
+    "plugins": [
       [
         "@babel/plugin-proposal-decorators",
         {
@@ -128,6 +128,7 @@
     "extends": "react-app"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-decorators": "^7.2.3"
+    "@babel/plugin-proposal-decorators": "^7.2.3",
+    "prettier": "^1.15.3"
   }
 }
