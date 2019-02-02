@@ -4,6 +4,7 @@ import "../styles.css";
 import {LightBulbSvg} from "./LightbulbSvg";
 import {LightBulbContext} from "./LightBulbContext";
 
+
 export const LightBulb = () => {
   /**
    * useState is a new way to use the capabilities that this.state would have offered.
@@ -12,10 +13,9 @@ export const LightBulb = () => {
    */
 
   // you must only call hooks at the top level of your function
-  let [light, setLight] = useState(0);
-  let [names, setNames] = useState([]);
-  let [joke, setJoke] = useState(null);
-
+  const [light, setLight] = useState(0);
+  const [names, setNames] = useState([]);
+  const [joke, setJoke] = useState(null);
   /**
    * The useContext() function accepts a context object,
    * which is initially returned from React.createContext(),
