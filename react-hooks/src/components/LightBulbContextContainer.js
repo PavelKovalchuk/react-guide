@@ -1,12 +1,11 @@
 import React from "react";
-import {LightBulb} from "./LightBulb";
 import {LightBulbContext} from "./LightBulbContext";
 
-export const LightBulbContextContainer = () => {
+export const LightBulbContextContainer = ({props, children}) => {
 
   return (
     <LightBulbContext.Provider value={"Luke"}>
-      <LightBulb />
+      {children}
     </LightBulbContext.Provider>
   );
 };
