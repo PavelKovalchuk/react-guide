@@ -1,7 +1,8 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 
 import "../styles.css";
 import {LightBulbSvg} from "./LightbulbSvg";
+import {LightBulbContext} from "./LightBulbContext";
 
 export const LightBulb = () => {
   /**
@@ -14,6 +15,13 @@ export const LightBulb = () => {
   let [light, setLight] = useState(0);
   let [names, setNames] = useState([]);
   let [joke, setJoke] = useState(null);
+
+  /**
+   * The useContext() function accepts a context object,
+   * which is initially returned from React.createContext(),
+   * and then returns the current context value.
+   */
+  const nameValue = useContext(LightBulbContext);
 
   /**
    * The useEffect Hook lets you perform side effects in function components.
@@ -52,6 +60,7 @@ export const LightBulb = () => {
 
   return (
     <div className="App">
+      <h1>{nameValue}</h1>
       <div>
         <LightBulbSvg fillColor={fillColor} />
       </div>

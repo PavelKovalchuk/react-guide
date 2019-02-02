@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import {LightBulb} from "./components/LightBulb";
+import {LightBulbContextContainer} from "./components/LightBulbContextContainer";
 
 class App extends Component {
   render() {
     return (
-      <LightBulb />
+      <LightBulbContextContainer>
+        <LightBulb />
+      </LightBulbContextContainer>
     );
   }
 }
